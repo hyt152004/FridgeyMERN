@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./component-css/create-user.component.css";
 
 function CreateUser() {
   const [username, setUsername] = useState("");
@@ -38,12 +39,9 @@ function CreateUser() {
             onChange={onChangeUsername}
           />
         </div>
+        <br />
         <div className="form-group">
-          <input
-            type="submit"
-            value="Create User"
-            className="btn btn-primary"
-          />
+          <input type="submit" value="Create User" className="hero-btn" />
         </div>
       </form>
     </div>

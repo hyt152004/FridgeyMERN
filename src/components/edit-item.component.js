@@ -9,7 +9,7 @@ const EditItem = () => {
   const userInput = useRef();
 
   const [username, setUsername] = useState("");
-  const [description, setDescription] = useState("");
+  const [itemName, setItemName] = useState("");
   const [date, setDate] = useState(new Date());
   const [expirationDate, setExpirationDate] = useState(new Date());
   const [users, setUsers] = useState([]);
@@ -19,7 +19,7 @@ const EditItem = () => {
       .get("http://localhost:3000/items/" + id)
       .then((response) => {
         setUsername(response.data.username);
-        setDescription(response.data.description);
+        setItemName(response.data.itemName);
         setExpirationDate(response.data.expirationDate);
         setDate(new Date(response.data.date));
       })
@@ -43,24 +43,24 @@ const EditItem = () => {
     setUsername(e.target.value);
   };
 
-  const onChangeDescription = (e) => {
-    setDescription(e.target.value);
+  const onChangeItemName = (e) => {
+    setItemName(e.target.value);
   };
 
   const onChangeExpirationDate = (e) => {
     setExpirationDate(e.target.value);
   };
 
-  const onChangeDate = (date) => {
-    setDate(date);
-  };
+  // const onChangeDate = (date) => {
+  //   setDate(date);
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     const item = {
       username: username,
-      description: description,
+      itemName: itemName,
       date: date,
     };
 
@@ -101,8 +101,8 @@ const EditItem = () => {
             type="text"
             required
             className="form-control"
-            value={description}
-            onChange={onChangeDescription}
+            value={itemName}
+            onChange={onChangeItemName}
           />
         </div>
         <div className="form-group">
@@ -115,19 +115,9 @@ const EditItem = () => {
           </div>
         </div>
 
+        <br />
         <div className="form-group">
-          <label>Date Added: </label>
-          <div>
-            <DatePicker selected={date} onChange={onChangeDate} />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <input
-            type="submit"
-            value="Edit Item Log"
-            className="btn btn-primary"
-          />
+          <input type="submit" value="Edit Item Log" className="hero-btn" />
         </div>
       </form>
     </div>

@@ -1,15 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
+import "../component-css/scanner.component.css";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
-function CreateItem() {
+function ScanItem(props) {
+  const [barcodeValue, setBarcodeValue] = useState(props.scannedCode);
   const [username, setUsername] = useState("");
   const [itemName, setItemName] = useState("");
   const [expirationDate, setExpirationDate] = useState(new Date());
   const date = new Date();
   const [users, setUsers] = useState([]);
   const userInput = useRef();
+  const [error, setError] = useState(null);
+  const API_Key = "REMOVED FOR GITHUB";
+
+  useEffect(() => {
+    setBarcodeValue(props.scannedCode);
+  }, [props.scannedCode]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/users/").then((response) => {
@@ -52,9 +60,65 @@ function CreateItem() {
     window.location = "/";
   };
 
+  function getAPIdata() {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+    const url =
+      proxyurl +
+      "https://api.barcodelookup.com/v3/products?barcode=" +
+      barcodeValue +
+      "&formatted=y&key=" +
+      API_Key;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setBarcodeValue(data.products[0].barcode_number);
+        setItemName(data.products[0].title);
+        setError(null);
+      })
+      .catch((err) => {
+        // throw err;
+        setError("Product not found");
+      });
+  }
+
+  const onChangeBarcodeValue = (e) => {
+    setBarcodeValue(e.target.value);
+  };
+
+  const handleRetry = () => {
+    setError("");
+    props.handleRescan();
+  };
+
   return (
     <div>
-      <h3>Create New Item Log</h3>
+      <strong>Barcode Number: </strong>
+      <div>{barcodeValue ? barcodeValue : "N/A"}</div>
+      <br />
+      <strong>Item Name: </strong>
+      <div>{barcodeValue ? itemName : "N/A"}</div>
+      <br />
+      {error && <p>Error: {error}</p>}
+      <input
+        type="text"
+        required
+        className="form-control"
+        value={barcodeValue}
+        onChange={onChangeBarcodeValue}
+      />
+      <br />
+      <div className="scan-actions">
+        <button className="sortButton hero-btn" onClick={getAPIdata}>
+          Generate
+        </button>
+
+        <button className="sortButton hero-btn" onClick={handleRetry}>
+          Retry
+        </button>
+      </div>
+      <br />
+      <br />
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Username: </label>
@@ -96,11 +160,15 @@ function CreateItem() {
         </div>
         <br />
         <div className="form-group">
-          <input type="submit" value="Create Item Log" className="hero-btn" />
+          <input
+            type="submit"
+            value="Create Item Log"
+            className="sortButton hero-btn"
+          />
         </div>
       </form>
     </div>
   );
 }
 
-export default CreateItem;
+export default ScanItem;

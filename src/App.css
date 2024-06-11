@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  width: 100%; /* Make the app full width */
 }
 
 .App-logo {
@@ -22,6 +23,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 100%; /* Ensure header also takes full width */
 }
 
 .App-link {
@@ -35,4 +37,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+.fridgey-functional {
+  position: fixed;
+  bottom: 20px; 
+  right: 20px; 
+  z-index: 999; 
+}
+
+.fridgey-link {
+  display: block;
 }

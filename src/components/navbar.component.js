@@ -4,22 +4,32 @@ import "./component-css/navbar.component.css";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
+    <nav>
       <Link to="/" className="navbar-brand">
         <img src={logo} alt="Logo" className="logoImage" />
       </Link>
-      <div className="collpase navbar-collapse">
-        <ul className="navbar-nav mr-auto">
+
+      <div className="nav-links">
+        <ul>
           <li className="navbar-item">
             <Link to="/" className="nav-link">
               Items
             </Link>
           </li>
+
           <li className="navbar-item">
-            <Link to="/create" className="nav-link">
-              Create Item Log
+            {/* change this directory */}
+            <Link to="/scan" className="nav-link">
+              Scan Item
             </Link>
           </li>
+
+          <li className="navbar-item">
+            <Link to="/create" className="nav-link">
+              Add Item
+            </Link>
+          </li>
+
           <li className="navbar-item">
             <Link to="/user" className="nav-link">
               Create User

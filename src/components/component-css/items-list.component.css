@@ -1,0 +1,47 @@
+.sortButton {
+  border-radius: 10px;
+  padding: 2px 3px;
+}
+
+.sortButton:hover {
+  opacity: 0.5;
+}
+
+.search-section {
+  margin-bottom: 10px;
+}
+
+.search-section input {
+  border-radius: 10px;
+  padding: 3px 6px;
+  margin-right: 10px;
+}
+
+.search-section button {
+  border-radius: 10px;
+  padding: 3px 6px;
+  font-size: medium;
+}
+
+.search-section button:hover {
+  opacity: 0.5;
+}
+
+.hero-btn {
+  display: inline-block;
+  text-decoration: none;
+  color: #f3835c;
+  border: 1px solid #f3835c;
+  padding: 12px 34px;
+  font-size: 13px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+.hero-btn:hover {
+  border: 1px solid #f3835c;
+  background: #f3835c;
+  color: #ffffff;
+  transition: 1s;
+}
